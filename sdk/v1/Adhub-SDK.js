@@ -1,5 +1,6 @@
 (function (global) {
     const Adhub = {
+        // Define on and emit for create EVENT
         events: {
             _handlers: {},
             on(event, handler) {
@@ -29,15 +30,17 @@
         }
     }
 
-    // Hàm render widget mới
+    // Render Widget Function
     Adhub.renderWidget = async function (element, config) {
         if (!element) return;
 
+        // Event trigger when widget start rendering process
         Adhub.events.emit("SLOT_RENDER_START", {
             timestamp: Date.now(),
             slotId: element.id
         });
 
+        // Shadow DOM
         const shadow = element.attachShadow({ mode: 'open' });
 
         const style = `
@@ -91,6 +94,7 @@
         updateTime();
         setInterval(updateTime, 1000);
 
+        // Event trigger when slot have rendered
         Adhub.events.emit("SLOT_RENDERED", {
             timestamp: Date.now(),
             slotId: element.id,
@@ -98,12 +102,13 @@
         });
     };
 
+    // Start SDK
     function start(config) {
         if (!config || !config.containerIds || !config.publisherName) {
             console.error(`Adhub: Please provide containerIds and publisherName!`);
             return;
         }
-
+        // Event trigger after check config be available
         Adhub.events.emit("CONFIG_LOADED", {
             timestamp: Date.now(),
             config: config
