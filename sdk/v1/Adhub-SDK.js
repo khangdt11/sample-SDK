@@ -102,6 +102,17 @@
         });
     };
 
+
+    function logRender() {
+        Adhub.events.on("SLOT_RENDER_START", data => {
+            console.log("EVENT: SLOT_RENDER_START", data);
+        });
+
+        Adhub.events.on("SLOT_RENDERED", data => {
+            console.log("EVENT: SLOT_RENDERED", data);
+        });
+    }
+
     // Start SDK
     function start(config) {
         if (!config || !config.containerIds || !config.publisherName) {
@@ -130,8 +141,13 @@
 
     Adhub.init = function (config) {
         if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", () => start(config));
+            document.addEventListener("DOMContentLoaded", () => {
+                logRender();
+                start(config);
+            }
+            );
         } else {
+            logRender();
             start(config);
         }
     };

@@ -16,13 +16,8 @@ Code inject to Publisher site
 ```
 
 --- 
-Code Tracking event Client Side
+Code Trigger Event
 ```JavaScript
-window.Adhub = window.Adhub || { event: { on: () => { } } };
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
     Adhub.events.on("SDK_READY", data => {
         console.log("EVENT: SDK_READY", data);
     });
@@ -38,5 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Adhub.events.on("SLOT_RENDERED", data => {
         console.log("EVENT: SLOT_RENDERED", data);
     });
-});
 ```
+
+---
+### Results
+---
+
+![demo](image.png)
+- *VIP is rank stored on Server*
